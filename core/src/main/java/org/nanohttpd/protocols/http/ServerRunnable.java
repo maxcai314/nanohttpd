@@ -44,13 +44,13 @@ import java.util.logging.Level;
  */
 public class ServerRunnable implements Runnable {
 
-    private NanoHTTPD httpd;
+    private final NanoHTTPD httpd;
 
     private final int timeout;
 
-    private IOException bindException;
+    private volatile IOException bindException;
 
-    private boolean hasBinded = false;
+    private volatile boolean hasBinded = false;
 
     public ServerRunnable(NanoHTTPD httpd, int timeout) {
         this.httpd = httpd;
