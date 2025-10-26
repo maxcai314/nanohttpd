@@ -609,8 +609,10 @@ public abstract class NanoHTTPD {
         while (!serverRunnable.hasBinded() && serverRunnable.getBindException() == null) {
             try {
                 Thread.sleep(10L);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt(); // re-interrupt
+            } catch (Throwable e) {
+                // on android this may not be allowed, that's why we
+                // catch throwable the wait should be very short because we are
+                // just waiting for the bind of the socket
             }
         }
         if (serverRunnable.getBindException() != null) {
